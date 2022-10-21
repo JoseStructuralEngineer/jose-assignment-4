@@ -7,10 +7,10 @@ import java.util.Arrays;
 public class StudentSortApplication {
 
     public static void main(String[] args){
-        //Here We Are going to create a service class and feed it an input file
+        //Here We Are going to call a service class "PrintDataService" and feed it an input file
         //It will then create internal array of students
-        //The service will have a method to return a sub array based on a class
-        //THe service allows to pring an array givena an array of students and a file name sorted
+        //The service will have a method to return a sub array based on name of class as input
+        //THe service allows to print an array of student given sorted by grade given d a file name
 
         PrintDataService printDataService = new PrintDataService();
         printDataService.readStudentData("student-master-list.csv");

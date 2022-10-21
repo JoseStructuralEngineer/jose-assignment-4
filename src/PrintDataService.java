@@ -1,11 +1,11 @@
 import java.io.*;
 import java.util.Arrays;
 
-public class PrintDataService {
+//This service is given a document that contains first row as titles and columns:Student ID,Student Name,Course,Grade
+//The columns are known and the tdata on the columns has been clean from null errors
+//There is a method that prints array Student[] data based on sorted mechanicsm defined by compareTo (based on grade)
 
-    //This service is given a document that contains first row as column titles
-    //The columns are known
-    //There is a method that prints data based on column sorted mechanicsm and with filters
+public class PrintDataService {
 
     private Student[] globaStudentArray;
 
@@ -25,17 +25,21 @@ public class PrintDataService {
             fileReader = new BufferedReader(new FileReader(fileName));
             String line;
             int lines = 0;
-            fileReader.readLine();
+            fileReader.readLine();//Skip frist line
+
             while (fileReader.readLine() != null) lines++;
+
             fileReader.close();
             fileReader = new BufferedReader(new FileReader(fileName));
             array = new Student[lines];
             int index = 0;
-            fileReader.readLine();
+            fileReader.readLine();//Skip frist line
+
             while((line = fileReader.readLine()) != null){
 
                 String[] data = line.split(",");
                 Student user = null;
+
                 if(data.length>2){
                     user = createUser(data);
                     array[index] = user;
@@ -43,10 +47,13 @@ public class PrintDataService {
                 }
 
             }
+
             fileReader.close();
         } catch (FileNotFoundException e) {
+
             throw new RuntimeException(e);
         } catch (IOException e) {
+
             throw new RuntimeException(e);
         }
         globaStudentArray = array;
@@ -79,18 +86,21 @@ public class PrintDataService {
 
         File file = new File(fileName);
         FileOutputStream fos = null;
-        Arrays.sort(arrayCourse);
+        Arrays.sort(arrayCourse);  //Sorted array
 
         try {
 
             fos = new FileOutputStream(file);
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
             bw.write("Student ID,Student Name,Course,Grade\n");
-            for (int i = 1; i < arrayCourse.length; i++) {
+
+            for (int i = 0; i < arrayCourse.length; i++) {
                 if(arrayCourse[i].getGrade()!=-1){
+
                     bw.write(String.valueOf((long) arrayCourse[i].getStudentId())+","+arrayCourse[i].getStudentName()
                             +","+arrayCourse[i].getCourse()+","+String.valueOf((long) arrayCourse[i].getGrade()));
                 }
+
                 bw.newLine();
             }
             bw.close();
