@@ -7,41 +7,38 @@ import java.util.Arrays;
 
 public class PrintDataService {
 
-    private Student[] globaStudentArray;
+    private Student[] globalStudentArray;
 
-    public Student createUser(String[] userData){
-
-        Student student = new Student(userData);
-        return student;
+    public Student createUser(String[] userData) {
+        return new Student(userData);
     }
 
-    public Student[] readStudentData(String fileName){
+    public Student[] readStudentData(String fileName) {
 
-        BufferedReader fileReader = null;
         Student[] array;
 
-        try{
+        try {
 
-            fileReader = new BufferedReader(new FileReader(fileName));
-            String line;
+            BufferedReader fileReader = new BufferedReader(new FileReader(fileName));
+
             int lines = 0;
             fileReader.readLine();//Skip frist line
 
             while (fileReader.readLine() != null) lines++;
 
             fileReader.close();
+
             fileReader = new BufferedReader(new FileReader(fileName));
             array = new Student[lines];
             int index = 0;
             fileReader.readLine();//Skip frist line
 
-            while((line = fileReader.readLine()) != null){
+            String line;
+            while ((line = fileReader.readLine()) != null) {
 
                 String[] data = line.split(",");
-                Student user = null;
-
-                if(data.length>2){
-                    user = createUser(data);
+                if (data.length > 2) {
+                    Student user = createUser(data);
                     array[index] = user;
                     index++;
                 }
@@ -49,32 +46,30 @@ public class PrintDataService {
             }
 
             fileReader.close();
-        } catch (FileNotFoundException e) {
 
-            throw new RuntimeException(e);
         } catch (IOException e) {
 
             throw new RuntimeException(e);
         }
-        globaStudentArray = array;
+        globalStudentArray = array;
         return array;
 
     }
 
 
-    public Student[] printStudentsPerClass(String course){
+    public Student[] printStudentsPerClass(String course) {
 
         int sizeArray = 0;
-        for (Student student: globaStudentArray) {
-            if(student.getCourse().contains(course)){
+        for (Student student : globalStudentArray) {
+            if (student.getCourse().contains(course)) {
                 sizeArray++;
             }
         }
         Student[] array = new Student[sizeArray];
 
         int i = 0;
-        for (Student student: globaStudentArray) {
-            if(student.getCourse().contains(course)){
+        for (Student student : globalStudentArray) {
+            if (student.getCourse().contains(course)) {
                 array[i] = student;
                 i++;
             }
@@ -82,30 +77,25 @@ public class PrintDataService {
         return array;
     }
 
-    public void printFilesSorted(Student[] arrayCourse, String fileName){
+    public void printFilesSorted(Student[] arrayCourse, String fileName) {
 
         File file = new File(fileName);
-        FileOutputStream fos = null;
         Arrays.sort(arrayCourse);  //Sorted array
 
         try {
 
-            fos = new FileOutputStream(file);
+            FileOutputStream fos = new FileOutputStream(file);
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
             bw.write("Student ID,Student Name,Course,Grade\n");
 
-            for (int i = 0; i < arrayCourse.length; i++) {
-                if(arrayCourse[i].getGrade()!=-1){
+            for (Student student : arrayCourse) {
 
-                    bw.write(String.valueOf((long) arrayCourse[i].getStudentId())+","+arrayCourse[i].getStudentName()
-                            +","+arrayCourse[i].getCourse()+","+String.valueOf((long) arrayCourse[i].getGrade()));
-                }
+                bw.write(student.getStudentId() + "," + student.getStudentName()
+                        + "," + student.getCourse() + "," + (long) student.getGrade());
 
                 bw.newLine();
             }
             bw.close();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -1,6 +1,6 @@
-import java.io.*;
+import java.io.Serializable;
 
-public class Student implements Comparable<Student>  {
+public class Student implements Comparable<Student> , Serializable{
     private long studentId;
     private String studentName;
     private String course;
@@ -77,7 +77,7 @@ public class Student implements Comparable<Student>  {
         return 0;
     }
 
-    //Method to return array table data
+
 
 
 
