@@ -9,8 +9,8 @@ public class StudentSortApplication {
     public static void main(String[] args){
         //Here We Are going to call a service class "PrintDataService" and feed it an input file
         //It will then create internal array of students
-        //The service will have a method to return a sub array based on name of class as input
-        //THe service allows to print an array of student given sorted by grade given d a file name
+        //The service will have a method to return a sub array based on "name of class" as input
+        //The service allows to print in a file given the name an array of student sorted by grade based on "name of class"
 
         PrintDataService printDataService = new PrintDataService();
         printDataService.readStudentData("student-master-list.csv");
