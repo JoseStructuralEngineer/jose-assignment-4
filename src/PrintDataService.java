@@ -92,7 +92,6 @@ public class PrintDataService {
 
                 bw.write(student.getStudentId() + "," + student.getStudentName()
                         + "," + student.getCourse() + "," + (long) student.getGrade());
-
                 bw.newLine();
             }
             bw.close();

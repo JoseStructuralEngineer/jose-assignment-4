@@ -1,6 +1,6 @@
 import java.io.Serializable;
 
-public class Student implements Comparable<Student> , Serializable{
+public class Student implements Comparable<Student> , Serializable {
     private long studentId;
     private String studentName;
     private String course;
